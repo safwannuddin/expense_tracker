@@ -1,19 +1,23 @@
 import { Suspense } from "react";
 import { connection } from "next/server";
+import { ArrowDownLeft, ArrowUpRight, Scale } from "lucide-react";
 import { getTransactions, summarise } from "@/lib/data";
 import { currentMonth, isMonth, todayISO } from "@/lib/dates";
 import { formatMoney } from "@/lib/money";
+import { tint } from "@/lib/ui";
+import { PageContainer, PageHeader } from "@/components/page-header";
 import { MonthSwitcher } from "@/components/month-switcher";
 import { TransactionList } from "@/components/transaction-list";
+import { cn } from "@/lib/utils";
 
 export default function TransactionsPage({ searchParams }: PageProps<"/transactions">) {
   return (
-    <main className="mx-auto w-full max-w-2xl space-y-4 p-4">
-      <h1 className="text-2xl font-semibold">Activity</h1>
-      <Suspense fallback={<div className="h-64 animate-pulse rounded-xl bg-muted" />}>
+    <PageContainer>
+      <PageHeader title="Activity" subtitle="Every pound in and out" />
+      <Suspense fallback={<div className="h-72 animate-pulse rounded-2xl bg-muted" />}>
         <MonthActivity searchParams={searchParams} />
       </Suspense>
-    </main>
+    </PageContainer>
   );
 }
 
@@ -24,29 +28,57 @@ async function MonthActivity({ searchParams }: { searchParams: PageProps<"/trans
   const month = isMonth(raw) ? raw : now;
   const transactions = await getTransactions(month);
   const { income, spent } = summarise(transactions);
+  const net = income - spent;
 
   return (
-    <>
+    <div className="space-y-6">
       <MonthSwitcher month={month} current={now} basePath="/transactions" />
-      <div className="grid grid-cols-2 gap-2 text-center">
-        <div className="rounded-xl border bg-card py-3">
-          <p className="text-xs text-muted-foreground">Spent</p>
-          <p className="text-lg font-semibold tabular-nums">{formatMoney(spent)}</p>
-        </div>
-        <div className="rounded-xl border bg-card py-3">
-          <p className="text-xs text-muted-foreground">Income</p>
-          <p className="text-lg font-semibold tabular-nums text-emerald-600 dark:text-emerald-400">
-            {formatMoney(income)}
-          </p>
-        </div>
+
+      <div className="grid grid-cols-3 gap-3">
+        <Stat icon={ArrowUpRight} label="Spent" value={formatMoney(spent)} color="var(--destructive)" />
+        <Stat icon={ArrowDownLeft} label="Income" value={formatMoney(income)} color="var(--success)" />
+        <Stat
+          icon={Scale}
+          label="Net"
+          value={`${net < 0 ? "−" : "+"}${formatMoney(Math.abs(net))}`}
+          color={net < 0 ? "var(--destructive)" : "var(--success)"}
+          valueClass={net < 0 ? "text-destructive" : "text-success"}
+        />
       </div>
+
       {transactions.length === 0 ? (
-        <p className="py-12 text-center text-sm text-muted-foreground">
-          Nothing logged this month. Tap <strong>+</strong> to add your first expense.
-        </p>
+        <div className="surface px-6 py-14 text-center">
+          <p className="text-4xl">🧾</p>
+          <p className="mt-3 font-medium">Nothing logged this month</p>
+          <p className="text-sm text-muted-foreground">Tap + to add your first expense.</p>
+        </div>
       ) : (
-        <TransactionList transactions={transactions} today={todayISO()} allowDelete />
+        <TransactionList transactions={transactions} today={todayISO()} allowDelete showDayTotals />
       )}
-    </>
+    </div>
+  );
+}
+
+function Stat({
+  icon: Icon,
+  label,
+  value,
+  color,
+  valueClass,
+}: {
+  icon: typeof Scale;
+  label: string;
+  value: string;
+  color: string;
+  valueClass?: string;
+}) {
+  return (
+    <div className="surface p-4">
+      <span className="flex size-8 items-center justify-center rounded-lg" style={{ background: tint(color), color }}>
+        <Icon className="size-4" />
+      </span>
+      <p className="mt-3 text-xs text-muted-foreground">{label}</p>
+      <p className={cn("truncate font-semibold tabular-nums md:text-lg", valueClass)}>{value}</p>
+    </div>
   );
 }

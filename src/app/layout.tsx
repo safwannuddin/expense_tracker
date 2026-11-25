@@ -18,13 +18,20 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Pocket – Expense Tracker",
   description: "AI-powered personal monthly expense tracker",
+  applicationName: "Pocket",
   appleWebApp: { capable: true, title: "Pocket", statusBarStyle: "default" },
+  formatDetection: { telephone: false },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0f172a",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f7f7fb" },
+    { media: "(prefers-color-scheme: dark)", color: "#141320" },
+  ],
   width: "device-width",
   initialScale: 1,
+  maximumScale: 1, // stop iOS zooming into inputs
+  viewportFit: "cover", // draw under the notch; we pad with safe-area insets
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -36,7 +43,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         {/* Clerk reads request data, so it streams in behind Suspense (cacheComponents). */}
         <Suspense>
-          <ClerkProvider>
+          <ClerkProvider
+            appearance={{
+              variables: { colorPrimary: "#4f46e5", borderRadius: "0.75rem", fontFamily: "var(--font-geist-sans)" },
+            }}
+          >
             {children}
             <Toaster />
           </ClerkProvider>

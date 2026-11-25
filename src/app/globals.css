@@ -1,8 +1,8 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (@media (prefers-color-scheme: dark));
 
 @theme inline {
   --color-background: var(--background);
@@ -48,83 +48,111 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+@theme inline {
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-brand-2: var(--brand-2);
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+/* ---------- Pocket brand theme ---------- */
+:root {
+  --background: oklch(0.982 0.004 275);
+  --foreground: oklch(0.22 0.025 275);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.025 275);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.025 275);
+  --primary: oklch(0.52 0.22 277);
+  --primary-foreground: oklch(0.99 0 0);
+  --brand-2: oklch(0.56 0.24 300);
+  --secondary: oklch(0.955 0.012 277);
+  --secondary-foreground: oklch(0.35 0.12 277);
+  --muted: oklch(0.962 0.006 275);
+  --muted-foreground: oklch(0.54 0.025 275);
+  --accent: oklch(0.955 0.012 277);
+  --accent-foreground: oklch(0.35 0.12 277);
+  --destructive: oklch(0.6 0.22 22);
+  --success: oklch(0.6 0.15 158);
+  --warning: oklch(0.75 0.16 70);
+  --border: oklch(0.925 0.008 275);
+  --input: oklch(0.9 0.01 275);
+  --ring: oklch(0.52 0.22 277);
+  --chart-1: oklch(0.55 0.22 277);
+  --chart-2: oklch(0.7 0.14 180);
+  --chart-3: oklch(0.78 0.16 75);
+  --chart-4: oklch(0.65 0.21 15);
+  --chart-5: oklch(0.68 0.15 235);
+  --radius: 0.875rem;
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.22 0.025 275);
+  --sidebar-primary: oklch(0.52 0.22 277);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.955 0.012 277);
+  --sidebar-accent-foreground: oklch(0.35 0.12 277);
+  --sidebar-border: oklch(0.925 0.008 275);
+  --sidebar-ring: oklch(0.52 0.22 277);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: oklch(0.155 0.018 278);
+    --foreground: oklch(0.965 0.005 275);
+    --card: oklch(0.205 0.022 278);
+    --card-foreground: oklch(0.965 0.005 275);
+    --popover: oklch(0.22 0.022 278);
+    --popover-foreground: oklch(0.965 0.005 275);
+    --primary: oklch(0.64 0.19 277);
+    --primary-foreground: oklch(0.99 0 0);
+    --brand-2: oklch(0.62 0.22 300);
+    --secondary: oklch(0.27 0.03 278);
+    --secondary-foreground: oklch(0.88 0.06 277);
+    --muted: oklch(0.25 0.022 278);
+    --muted-foreground: oklch(0.7 0.02 275);
+    --accent: oklch(0.27 0.03 278);
+    --accent-foreground: oklch(0.88 0.06 277);
+    --destructive: oklch(0.7 0.19 22);
+    --success: oklch(0.74 0.15 158);
+    --warning: oklch(0.8 0.15 75);
+    --border: oklch(1 0 0 / 9%);
+    --input: oklch(1 0 0 / 14%);
+    --ring: oklch(0.64 0.19 277);
+    --chart-1: oklch(0.66 0.19 277);
+    --chart-2: oklch(0.74 0.13 180);
+    --chart-3: oklch(0.8 0.15 75);
+    --chart-4: oklch(0.7 0.19 15);
+    --chart-5: oklch(0.72 0.14 235);
+    --sidebar: oklch(0.185 0.02 278);
+    --sidebar-foreground: oklch(0.965 0.005 275);
+    --sidebar-primary: oklch(0.64 0.19 277);
+    --sidebar-primary-foreground: oklch(0.99 0 0);
+    --sidebar-accent: oklch(0.27 0.03 278);
+    --sidebar-accent-foreground: oklch(0.88 0.06 277);
+    --sidebar-border: oklch(1 0 0 / 9%);
+    --sidebar-ring: oklch(0.64 0.19 277);
+  }
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-sans;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01";
+  }
+}
+
+@layer components {
+  /* Gradient used for the hero balance card, FAB and logo */
+  .bg-brand {
+    background-image: linear-gradient(135deg, var(--primary) 0%, var(--brand-2) 100%);
+  }
+  .surface {
+    @apply rounded-2xl border bg-card shadow-[0_1px_2px_rgb(0_0_0/0.04),0_4px_16px_-4px_rgb(0_0_0/0.06)];
   }
 }

@@ -36,7 +36,7 @@ export function AddAccountButton({ variant = "default" }: { variant?: "default" 
 
   return (
     <>
-      <Button variant={variant} onClick={() => setOpen(true)}>
+      <Button variant={variant} onClick={() => setOpen(true)} className="h-10 gap-1.5 rounded-xl px-4">
         <Plus /> Add account
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
